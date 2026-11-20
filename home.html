@@ -1,0 +1,8 @@
+{% extends "base.html" %}{% block title %}Welcome{% endblock %}
+{% block content %}
+<section class="hero">
+ <div class="hero-copy"><span class="pill">♻ A SMARTER WAY TO STAY CLEAN</span><h1>Waste less.<br><em>Live better.</em></h1><p>EcoTruck connects communities, collection teams and recycling partners to make waste management simple, transparent and sustainable.</p><div class="hero-buttons"><a class="btn btn-primary" href="{{ url_for('register') }}">Get started <span>→</span></a><a class="btn btn-outline" href="{{ url_for('login') }}">Sign in</a></div><div class="hero-note"><span class="mini-avatars">● ● ●</span> Making everyday waste collection smarter</div></div>
+ <div class="hero-art"><div class="sun"></div><div class="leaf leaf-one">✦</div><div class="truck-card"><div class="truck-top">ECO<span>TRUCK</span><b>♻</b></div><div class="truck-body"><div class="truck-window"></div><div class="truck-bin">♻</div></div><div class="truck-wheels"><i></i><i></i></div></div><div class="floating-stat"><b>100%</b><span>Cleaner habits<br>start here</span></div><div class="ground"></div></div>
+</section>
+<section class="feature-row"><div><span>01</span><b>Easy pickup</b><small>Schedule waste collection</small></div><div><span>02</span><b>Smart tracking</b><small>Know your pickup status</small></div><div><span>03</span><b>Better recycling</b><small>Support a circular future</small></div></section>
+{% endblock %}

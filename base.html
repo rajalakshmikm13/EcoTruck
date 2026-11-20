@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}EcoTruck{% endblock %} | Smart Waste Management</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+{% if current_user.get('user_id') %}
+<aside class="sidebar">
+ <a class="brand" href="{{ url_for('dashboard') }}"><span class="brand-icon">♻</span><span>eco<span class="brand-light">truck</span><small>SMART WASTE MANAGEMENT</small></span></a>
+ <div class="side-label">WORKSPACE</div>
+ <nav>
+  <a href="{{ url_for('dashboard') }}">▦ <span>Dashboard</span></a>
+  <a href="{{ url_for('pickups') }}">♧ <span>Pickup requests</span></a>
+  {% if current_user.get('role')=='citizen' %}<a href="{{ url_for('new_pickup') }}">＋ <span>Request pickup</span></a>{% endif %}
+  {% if current_user.get('role')=='admin' %}
+  <a href="{{ url_for('trucks') }}">▣ <span>Truck management</span></a>
+  <a href="{{ url_for('drivers') }}">♙ <span>Drivers</span></a>
+  <a href="{{ url_for('reports') }}">▤ <span>Reports & analytics</span></a>
+  {% endif %}
+  <a href="{{ url_for('complaints') }}">♡ <span>Complaints</span></a>
+ </nav>
+ <div class="side-bottom"><div class="avatar">{{ current_user.get('name','U')[0]|upper }}</div><div class="user-mini"><b>{{ current_user.get('name') }}</b><small>{{ current_user.get('role','citizen')|title }}</small></div><a class="logout" href="{{ url_for('logout') }}">↗</a></div>
+</aside>
+{% endif %}
+<main class="{% if current_user.get('user_id') %}main-with-sidebar{% else %}public-main{% endif %}">
+{% if current_user.get('user_id') %}
+<header class="topbar"><div><span class="eyebrow">ECOTRUCK / {{ current_user.get('role','')|upper }}</span><h2>{% block page_heading %}Workspace{% endblock %}</h2></div><div class="top-actions"><span class="today">{{ now_label if now_label else 'Cleaner cities start here' }}</span><a class="profile-link" href="{{ url_for('profile') }}">⚙</a></div></header>
+{% endif %}
+<div class="content">
+{% with messages=get_flashed_messages(with_categories=true) %}{% if messages %}{% for category,message in messages %}<div class="alert {{ category }}">{{ message }}<button onclick="this.parentElement.remove()">×</button></div>{% endfor %}{% endif %}{% endwith %}
+{% block content %}{% endblock %}
+</div>
+<footer>© 2026 EcoTruck · Building cleaner communities, one pickup at a time.</footer>
+</main>
+</body></html>
